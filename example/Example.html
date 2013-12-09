@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+  "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <title>Topical JS Worked Example</title>
+  
+  <link rel="stylesheet" type="text/css" href="example.css" media="screen" />
+
+  <!-- include source files here... -->
+  <script type="text/javascript" src="jquery-2.0.3.min.js"></script>
+  <script type="text/javascript" src="../src/main/js/topical.js"></script>
+  <script type="text/javascript" src="example.js"></script>
+  
+  <script type="text/javascript">
+    $(document).ready(function() { example.init(); });
+  </script>
+
+</head>
+
+<body>
+
+    <div id="content">
+        <div id="header">
+            Topical JS Example
+        </div>
+        <div id="left">
+            Enter left-hand text: <input id="left-text"/>
+        </div>
+        <div id="right">
+            Enter right-hand text: <input id="right-text"/>
+        </div>
+        <div id="footer">
+            <div id="status">
+                <p>Once both text boxes are full...</p> 
+                <p>The left text box has: 
+                    <span id="both-left"></span>
+                </p>
+                <p>
+                The right text box has:
+                    <span id="both-right"></span>
+                </p>
+            </div>
+            <div id="reset-container"><input id="reset" type="button" value="Reset"/></div>
+        </div>
+    </div>
+
+</body>
+</html>

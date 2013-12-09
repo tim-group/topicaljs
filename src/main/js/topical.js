@@ -101,7 +101,7 @@ var topical = (function () {
         },
         messageBusModule = function (definition) {
             if (definition.publish) {
-                forEach(definition.publish, function (topic) {
+                forEach(arrayOf(definition.publish), function (topic) {
                     var topicName = topic.substr(0, 1).toUpperCase() + topic.substr(1);
                     definition['fire' + topicName] = function () {
                         definition.__bus__._fire(topic, toArray(arguments));
