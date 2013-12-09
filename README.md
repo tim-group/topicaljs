@@ -12,8 +12,11 @@ How it works
 ============
 
 TopicalJS provides a message bus.  Multiple message busses can be created, but things are less confusing when you only have one.  This 
-message bus operates exactly like
+message bus operates exactly like an ethernet network.  Messages sent on the bus are sent to every module on the bus with only those modules
+expressing an interest in the message reacting to it, where others can ignore it.
 
+Events consist of an event name, which can be any name you choose, and optionally contain one or more data components, which themselves can
+be arrays or maps.
 
 How to use it
 =============
@@ -28,4 +31,33 @@ When you are ready, you can invoke the function that will create you message bus
 
 ```javascript
 $(document).ready(function() { topical.MessageBus(module1, module2, ..., moduleN); });
+```
+
+This will create the message bus and emit the initialise event which is passed to every module.  Therefore modules do whatever they want
+at start up, such as fetch data via Ajax, or populate DOM elements, for example.
+
+Module structure
+----------------
+
+A typical module looks like this:
+
+```javascript
+topical.MessageBusModule({
+    name: "A descriptive name",
+    subscribe: {
+        initialise: function() {
+            // do something at startup
+        },
+        eventType1: function() { 
+            this.fireAnotherEventType(somedata);
+        },
+        eventType2: function() { 
+            this.fireYetAnotherEventType(somedata, someotherdata);
+            // or
+            this.fire("yetAnotherEventType", somedata, someotherdata)
+        }
+    },
+    // list of event types that this module can emit
+    publish: ["anotherEventType", "yetAnotherEventType"]
+}),
 ```
