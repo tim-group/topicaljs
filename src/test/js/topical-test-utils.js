@@ -1,12 +1,6 @@
-/*
- * @include "/HIP/web/js/YD/HIP/MessageBus/MessageBus.js"
- */
-
 "use strict";
 
-DEFINE('YD.HIP.MessageBus');
-
-YD.HIP.MessageBus.MessageBusTestUtils = {
+topical.TestUtils = {
     inspector: function(messageName) {
         var subscriptions = {},
             self = {};
@@ -27,15 +21,18 @@ YD.HIP.MessageBus.MessageBusTestUtils = {
 
         self.subscribe = subscriptions;
 
-        return YD.HIP.MessageBus.MessageBusModule(self);
+        return topical.MessageBusModule(self);
     },
 
     busHolding: function(modules, test) {
         return function() {
-            var bus = YD.HIP.MessageBus.MessageBus(),
-                args;
+            var bus = topical.MessageBus(),
+                args,
+                i;
 
-            modules.each(function(mod) { bus.addModule(mod); });
+            for (i = 0; i < modules.length; i = i + 1) {
+                bus.addModule(modules[i]);
+            }
             
             args = modules.concat(bus);
             args.push(bus);

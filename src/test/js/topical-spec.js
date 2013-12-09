@@ -1,6 +1,5 @@
 "use strict";
 
-
 describe("topical", function() {
     it("subscription methods are called in the context of the module", function() {
         var bus = topical.MessageBus(), 
