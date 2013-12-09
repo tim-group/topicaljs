@@ -51,7 +51,7 @@ topical.MessageBusModule({
         eventType1: function() { 
             this.fireAnotherEventType(somedata);
         },
-        eventType2: function() { 
+        eventType2: function(inputdata) { 
             this.fireYetAnotherEventType(somedata, someotherdata);
             // or
             this.fire("yetAnotherEventType", somedata, someotherdata)
@@ -61,3 +61,59 @@ topical.MessageBusModule({
     publish: ["anotherEventType", "yetAnotherEventType"]
 }),
 ```
+
+Note that eventTypeTwo is fired with an inputdata event object which can contain information relevant to the event.  For example, if the
+event is emitted as a result of the Ajax call, this could be the data contained in the response.
+
+
+Generic Modules
+---------------
+
+Modules can be customized and reused.  We have provided two default ones which can be use to create a declarative event passing system.
+
+Republishing
+------------
+
+For semantic or practical purposes, it can be useful to republish certain events.  For example, on initialise, you might want to clear
+out any potentially resident DOM object state.  So, you could republish initialise as clear, for example:
+
+```javascript
+topical.Republish({ subscribeTo: "initialise", republishAs: [ "clear"] });
+```
+
+Note that the subscribeTo and republishAs keys can have either a single string or array of strings for the value.  In this way to can create
+multiple events from a single event name, or publish the same event or set of events based on a range of input events.
+
+Coordination
+------------ 
+
+Sometimes you only want something to happen once a number of other events have occured.  This is what the Coordinator does.  It waits until
+a set of events have completed, and then fires its own event collating all the data from the events it subscribed to.  Once it publishes 
+its collation event, it resets its state and starts gathering new events again.
+
+```javascript
+topical.Coordinate({ expecting: ["eventOne", "eventTwo"], publishing: "bothEventsHaveHappened" }),
+
+```
+
+Once eventOne and eventTwo have fired, a new event "bothEventsHaveHappened" is emitted with a single data object containing the data from 
+both the consumed events named according to their event names.  Therefore the handler for this event would look like this:
+
+```javascript
+subscribe: {
+    bothEventsHaveHappened: function(data) {
+        data.eventOne; // the data associated with eventOne, if any, and
+        data.eventTwo; // the data associated with eventTwo, if any.
+    }
+}
+```
+
+Worked example
+==============
+
+An example of TopicalJS in action can be found in the example folder.
+
+Contributing
+============
+We would love your feedback and contribution to this project.  Please feel free to make Pull Requests for new awesome generic modules you 
+might invent.
