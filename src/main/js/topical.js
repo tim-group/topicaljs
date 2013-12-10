@@ -180,6 +180,7 @@ var topical = (function () {
         };
 
     return {
+        Version: "1.0",
         MessageBus: messageBus,
         MessageBusModule: messageBusModule,
         Republish: republish,
