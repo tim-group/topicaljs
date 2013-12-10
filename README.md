@@ -33,7 +33,7 @@ When you are ready, you can invoke the function that will create you message bus
 $(document).ready(function() { topical.MessageBus(module1, module2, ..., moduleN); });
 ```
 
-This will create the message bus and emit the initialise event which is passed to every module.  Therefore modules do whatever they want
+This will create the message bus and emit the init event which is passed to every module.  Therefore modules do whatever they want
 at start up, such as fetch data via Ajax, or populate DOM elements, for example.
 
 Module structure
@@ -45,7 +45,7 @@ A typical module looks like this:
 topical.MessageBusModule({
     name: "A descriptive name",
     subscribe: {
-        initialise: function() {
+        init: function() {
             // do something at startup
         },
         eventType1: function() { 
@@ -74,11 +74,11 @@ Modules can be customized and reused.  We have provided two default ones which c
 Republishing
 ------------
 
-For semantic or practical purposes, it can be useful to republish certain events.  For example, on initialise, you might want to clear
-out any potentially resident DOM object state.  So, you could republish initialise as clear, for example:
+For semantic or practical purposes, it can be useful to republish certain events.  For example, on init, you might want to clear
+out any potentially resident DOM object state.  So, you could republish init as clear, for example:
 
 ```javascript
-topical.Republish({ subscribeTo: "initialise", republishAs: [ "clear"] });
+topical.Republish({ subscribeTo: "init", republishAs: [ "clear"] });
 ```
 
 Note that the subscribeTo and republishAs keys can have either a single string or array of strings for the value.  In this way to can create

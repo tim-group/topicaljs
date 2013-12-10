@@ -96,7 +96,7 @@ var topical = (function () {
                 bus.addModule(module);
             });
 
-            bus.fire("initialise");
+            bus.fire("init");
             return bus;
         },
         messageBusModule = function (definition) {
@@ -108,8 +108,8 @@ var topical = (function () {
                     };
                 });
             }
-            if (definition.initialise) {
-                definition.initialise();
+            if (definition.init) {
+                definition.init();
             }
 
             definition.fire = function () { definition.__bus__.fire.apply(definition.__bus__, toArray(arguments)); };

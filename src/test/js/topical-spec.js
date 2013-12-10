@@ -234,18 +234,18 @@ describe("topical", function() {
     });
 
     it("fires an initialisation message", function() {
-        var initialise = jasmine.createSpy(),
+        var init = jasmine.createSpy(),
             module = function() {
                 return topical.MessageBusModule({
                     subscribe: {
-                        "initialise": initialise
+                        "init": init
                     }
                 });
             };
 
         topical.MessageBus( module() );
 
-        expect(initialise).toHaveBeenCalled();
+        expect(init).toHaveBeenCalled();
     });
 
     it("adds all modules passed in constructor to the bus", function() {

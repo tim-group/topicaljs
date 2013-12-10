@@ -19,7 +19,7 @@
             return topical.MessageBus(
                 topical.Coordinate({ expecting: ["leftTextEntered", "rightTextEntered"], publishing: "bothTextsEntered" }),
 
-                topical.Republish({ subscribeTo: "initialise", republishAs: [ "hello", "clear"] }),
+                topical.Republish({ subscribeTo: "init", republishAs: [ "hello", "clear"] }),
                 topical.Republish({ subscribeTo: "reset", republishAs: "clear" }),
 
                 topical.MessageBusModule({
@@ -34,7 +34,7 @@
                 topical.MessageBusModule({
                     name: "Left",
                     subscribe: {
-                        initialise: function() {
+                        init: function() {
                             $("#left-text").change(function() { this.fireLeftTextEntered($("#left-text").val()); }.bind(this));
                         },
                         leftTextEntered: function() { disable($("#left-text")); },
@@ -46,7 +46,7 @@
                 topical.MessageBusModule({
                     name: "Right",
                     subscribe: {
-                        initialise: function() { $("#right-text").change(function() { this.fireRightTextEntered($("#right-text").val()); }.bind(this)); },
+                        init: function() { $("#right-text").change(function() { this.fireRightTextEntered($("#right-text").val()); }.bind(this)); },
                         rightTextEntered: function() { disable($("#right-text")); },
                         clear: function() { enable($("#right-text")).val(""); }
                     },
@@ -70,7 +70,7 @@
                 topical.MessageBusModule({
                     name: "Reset",
                     subscribe: {
-                        initialise: function() { 
+                        init: function() { 
                             $("#reset").click(function() { 
                                 this.fireReset(); }.bind(this));
                         }
