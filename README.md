@@ -113,6 +113,31 @@ Worked example
 
 An example of TopicalJS in action can be found in the example folder.
 
+Testing
+=======
+
+We provide two utilities for testing: an "inspector" for checking what events and data are fired, and a function to call to wrap your tests
+and provide a bus containing the specified modules.  This is compatible with Jasmine JS testing.
+
+```javascript
+describe("TopicalJS", function() {
+    it("can be tested with Jasmine", topical.TestUtils.busHolding(
+        [moduleUnderTest, topical.TestUtils.inspector("publishedEvent")],
+        function(moduleUnderTest, inspector, bus) {
+            bus.fire("sourceEvent");
+
+            expect(inspector.publishedEventReceived).toBe(true);
+            expect(inspector.publishedEvent).toEqual("dataPublishedByModuleUnderTest");
+        })
+    );
+});
+```
+
+In this example "busHolding" returns a function that will be executed by Jasmine and which should contain your assertions.  busHolding takes
+a list of modules which will typically just be the one under test, or more, if you're testing interactions, and a function to call.  This
+function will take the modules under test arguments.  One module that can be added to the bus is the "inspector", which will record an event
+type and which can be interrogated.  So if your module raises event, the inspector can be used to check that they are indeed raised.
+
 Contributing
 ============
 We would love your feedback and contribution to this project.  Please feel free to make Pull Requests for new awesome generic modules you 
