@@ -27,7 +27,7 @@ If being used in a browser, include the topical.js script as a script.
 <script type="text/javascript" src="topical.js"></script>
 ```
 
-When you are ready, you can invoke the function that will create you message bus.  In this example, we're using jQuery to kick things off.
+When you are ready, you can invoke the function that will create your message bus.  In this example, we're using jQuery to kick things off.
 
 ```javascript
 $(document).ready(function() { topical.MessageBus(module1, module2, ..., moduleN); });
